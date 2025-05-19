@@ -65,3 +65,34 @@ This program uses a Japanese-compatible font to render kanji correctly in the PD
 If the font isn’t installed, the PDF generation will fail with an error.
 
 4. Make sure the `user_dummy_data.json` file is available and points to real data.
+
+---
+
+## 📊 UML Sequence Diagram
+
+This diagram shows how the main program requests and receives a kanji PDF report from the microservice.
+
+```mermaid
+sequenceDiagram
+    participant MainProgram
+    participant generate_report.py
+    participant user_dummy_data.json
+    participant PDFFile
+
+    MainProgram->>generate_report.py: import load_user_data, generate_pdf
+    MainProgram->>generate_report.py: call load_user_data(email)
+    generate_report.py->>user_dummy_data.json: open + parse JSON
+    user_dummy_data.json-->>generate_report.py: return user["kanji_data"]["known"]
+    generate_report.py-->>MainProgram: return kanji_list
+
+    MainProgram->>generate_report.py: call generate_pdf(kanji_list, email)
+    generate_report.py->>PDFFile: create kanji_report_<email>.pdf
+    PDFFile-->>generate_report.py: file saved to disk
+    generate_report.py-->>MainProgram: done (no return value)
+```
+
+### Summary:
+- Your main program imports and calls `load_user_data()` to retrieve a list of known kanji.
+- It then calls `generate_pdf()` with that data.
+- The microservice saves the PDF to disk with the user's email in the filename.
+- Nothing is returned because the output of the microservice is the file itself.
