@@ -9,8 +9,8 @@ This microservice for the Kanji Crow CLI flashcard program generates a formatted
 To request a report, call the `generate_pdf(email)` function from this microservice.
 
 You’ll need to:
-- Pass in the user’s email as a string)
-- Make sure that email exists in the user JSON file (`user_dummy_data.json`)
+- Pass in the user’s email as a string
+- Make sure that email exists in the user JSON file: `user_dummy_data.json`
 
 **Example call:**
 
@@ -25,15 +25,6 @@ generate_pdf(kanji_list, email)
 This call will create a PDF file like this in the same folder:
 ```
 kanji_report_test_at_gmail.com.pdf
-```
-
-You can also call the script directly using a subprocess if you're not importing the file:
-
-```python
-import subprocess
-
-email = "test@gmail.com"
-subprocess.run(["python3", "generate_report.py", email])
 ```
 
 ## How to RECEIVE data
