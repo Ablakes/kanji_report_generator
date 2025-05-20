@@ -68,7 +68,7 @@ If the font isn’t installed, the PDF generation will fail with an error.
 
 ---
 
-## 📊 UML Sequence Diagram
+## UML Sequence Diagram
 
 This diagram shows how the main program requests and receives a kanji PDF report from the microservice.
 
