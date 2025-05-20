@@ -75,18 +75,17 @@ This diagram shows how the main program requests and receives a kanji PDF report
 ```mermaid
 sequenceDiagram
     participant MainProgram
+    participant OS
     participant generate_report.py
     participant user_dummy_data.json
     participant PDFFile
 
-    MainProgram->>generate_report.py: import load_user_data, generate_pdf
-    MainProgram->>generate_report.py: call load_user_data(email)
-    generate_report.py->>user_dummy_data.json: open + parse JSON
-    user_dummy_data.json-->>generate_report.py: return user["kanji_data"]["known"]
-    generate_report.py-->>MainProgram: return kanji_list
-
-    MainProgram->>generate_report.py: call generate_pdf(kanji_list, email)
-    generate_report.py->>PDFFile: create kanji_report_<email>.pdf
-    PDFFile-->>generate_report.py: file saved to disk
-    generate_report.py-->>MainProgram: done (no return value)
+    MainProgram->>OS: run generate_report.py via subprocess
+    OS->>generate_report.py: execute as separate process
+    generate_report.py->>user_dummy_data.json: load kanji data (JSON)
+    user_dummy_data.json-->>generate_report.py: return kanji_list
+    generate_report.py->>PDFFile: generate and save kanji_report.pdf
+    PDFFile-->>generate_report.py: file saved
+    generate_report.py-->>OS: done
+    OS-->>MainProgram: process complete
 ```
