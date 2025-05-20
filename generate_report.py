@@ -40,11 +40,11 @@ def generate_pdf(kanji_list, email):
     pdf.ln()
 
     # Table body formatting for FPDF
-    for k in kanji_list:
-        pdf.cell(20, 10, k.get("kanji", ""), 1)
-        pdf.cell(40, 10, k.get("heisig_en", ""), 1)
-        pdf.cell(15, 10, str(k.get("jlpt", "")), 1)
-        pdf.cell(115, 10, "; ".join(k.get("meanings", [])), 1)
+    for item in kanji_list:
+        pdf.cell(20, 10, item.get("kanji", ""), 1)
+        pdf.cell(40, 10, item.get("heisig_en", ""), 1)
+        pdf.cell(15, 10, str(item.get("jlpt", "")), 1)
+        pdf.cell(115, 10, "; ".join(item.get("meanings", [])), 1)
         pdf.ln()
 
     # Replace '@' in the filename
@@ -58,3 +58,4 @@ if __name__ == "__main__":
     kanji_list = load_user_data(email)
     if kanji_list:
         generate_pdf(kanji_list, email)
+print("Report created successfully!")

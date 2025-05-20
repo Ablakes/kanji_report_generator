@@ -8,12 +8,17 @@ def request_kanji_report(email):
             capture_output=True,
             text=True
         )
-        print("Microservice output:")
-        print(result.stdout)
 
         if result.stderr:
             print("Microservice error output:")
             print(result.stderr)
+
+        # Check if confirmation line is in stdout
+        if "Report created successfully!" in result.stdout:
+            print("Report created successfully!")
+        else:
+            print("Microservice output:")
+            print(result.stdout.strip())
 
     except Exception as e:
         print(f"Failed to run microservice: {e}")
