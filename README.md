@@ -1,6 +1,6 @@
 # Kanji Report Generator Microservice
 
-This microservice for the Kanji Crow CLI flashcard program generates a formatted PDF report of a user's known kanji list.
+This is a microservice for the Kanji Crow CLI flashcard program that generates a formatted PDF report of a user's known kanji list.
 
 ## Communication Contract
 
@@ -90,9 +90,3 @@ sequenceDiagram
     PDFFile-->>generate_report.py: file saved to disk
     generate_report.py-->>MainProgram: done (no return value)
 ```
-
-### Summary:
-- Your main program imports and calls `load_user_data()` to retrieve a list of known kanji.
-- It then calls `generate_pdf()` with that data.
-- The microservice saves the PDF to disk with the user's email in the filename.
-- Nothing is returned because the output of the microservice is the file itself.
